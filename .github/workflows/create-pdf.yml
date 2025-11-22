@@ -1,0 +1,111 @@
+name: Build Resume (HTML + PDF)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create output directory
+        run: mkdir -p output
+
+      - name: Copy resume assets
+        run: cp resume/resume-stylesheet.css output/resume-stylesheet.css
+
+        # ----------------------------------------------------------
+      # Install Pandoc (latest)
+      # ----------------------------------------------------------
+      - name: Install Pandoc
+        run: |
+          wget https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-1-amd64.deb
+          sudo dpkg -i pandoc-3.6.4-1-amd64.deb
+
+      # ----------------------------------------------------------
+      # Install WeasyPrint & dependencies
+      # ----------------------------------------------------------
+      - name: Install WeasyPrint dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            python3-pip \
+            python3-cffi \
+            libpango-1.0-0 \
+            libcairo2 \
+            libgdk-pixbuf2.0-0 \
+            libffi-dev \
+            libxml2 \
+            libxslt1.1 \
+            fonts-dejavu-core \
+            fonts-liberation \
+            fonts-freefont-ttf
+
+          sudo pip3 install weasyprint
+
+      # ----------------------------------------------------------
+      # Build HTML
+      # ----------------------------------------------------------
+      - name: Convert Markdown → HTML
+        run: |
+          pandoc resume/resume.md \
+            -f markdown \
+            -t html \
+            -c resume-stylesheet.css \
+            -s \
+            -o output/resume.html
+
+      # ----------------------------------------------------------
+      # Build PDF
+      # ----------------------------------------------------------
+      - name: Convert HTML → PDF
+        run: |
+          weasyprint \
+            output/resume.html \
+            output/resume.pdf
+
+      # ----------------------------------------------------------
+      # Upload as an artifact (zip)
+      # ----------------------------------------------------------
+      - name: Upload resume artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: resume-files
+          path: output
+
+      # ----------------------------------------------------------
+      # Upload Pages artifact
+      # ----------------------------------------------------------
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: output
+
+  # --------------------------------------------------------------
+  # Deploy HTML to GitHub Pages
+  # --------------------------------------------------------------
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4.0.1

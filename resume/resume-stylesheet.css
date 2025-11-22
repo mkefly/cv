@@ -1,0 +1,161 @@
+/* -------------------------------------------------------
+   Compact, Left-Aligned, Professional CV Stylesheet
+   Optimized for one-page FAANG-style layout
+   ------------------------------------------------------- */
+
+html, body {
+    margin: 0 auto;
+    padding: 0;
+    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.25;
+    max-width: 900px;
+    color: #222;
+    background: #fff;
+}
+
+@page {
+    size: A4;
+    margin: 1.2cm;                 /* compact margins */
+}
+
+/* ---------------------------
+   HEADINGS
+---------------------------- */
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    text-align: left !important;   /* ← important */
+}
+
+h1 {
+    font-size: 22px;
+    margin-bottom: 2px;
+}
+
+h2 {
+    font-size: 14px;
+    margin-top: 14px;
+    margin-bottom: 3px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 2px;
+}
+
+h3 {
+    font-size: 12.5px;
+    margin-bottom: 1px;
+}
+
+/* ---------------------------
+   CONTACT (now left-aligned)
+---------------------------- */
+
+.cv-contact {
+    text-align: left !important;   /* ← important */
+    font-size: 11px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.cv-contact a {
+    color: #005bcc;
+    text-decoration: none;
+}
+
+/* ---------------------------
+   SECTIONS
+---------------------------- */
+
+section {
+    margin-bottom: 8px;
+}
+
+/* ---------------------------
+   JOB ENTRY
+---------------------------- */
+
+.job {
+    margin-bottom: 6px;
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.job-title {
+    font-weight: 600;
+    font-size: 12.5px;
+    text-align: left;
+}
+
+.job-company {
+    font-weight: 500;
+    font-size: 11.5px;
+    color: #555;
+    text-align: left;
+}
+
+.job-meta {
+    font-size: 11px;
+    color: #555;
+    margin: 1px 0 4px;
+}
+
+.job-dates {
+    font-size: 11px;
+    color: #666;
+    white-space: nowrap;
+}
+
+/* ---------------------------
+   BULLETS (compact)
+---------------------------- */
+
+.job ul {
+    margin: 2px 0 4px 0;
+    padding-left: 18px;
+}
+
+.job li {
+    margin-bottom: 1px;
+    padding-left: 2px;
+}
+
+/* ---------------------------
+   SKILLS
+---------------------------- */
+
+.skill-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px 12px;
+    margin-top: 4px;
+}
+
+.skill {
+    font-size: 11px;
+}
+
+/* Optional pill style */
+.pill {
+    display: inline-block;
+    background: #f2f2f2;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 10px;
+    margin: 1px 2px;
+}
+
+/* ---------------------------
+   PRINT OPTIMIZATION
+---------------------------- */
+
+@media print {
+    a[href]:after { content: ""; }
+    body { box-shadow: none; }
+}
