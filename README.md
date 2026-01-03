@@ -17,5 +17,5 @@ weasyprint resume/resume.html resume/resume.pdf
 ### Single liner PDF
 
 ```bash
-pandoc resume.md -f markdown -t pdf --pdf-engine=weasyprint -c resume-stylesheet.css -s -o resume.pdf  
+pandoc resume/resume.md -f markdown -t pdf --pdf-engine=weasyprint -c resume/resume-stylesheet.css -s -o resume/resume.pdf
 ```
