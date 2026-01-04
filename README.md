@@ -1,5 +1,9 @@
 ## **Local Build**
 
+```bash
+pip install -r requirements.txt
+```
+
 ### Generate HTML
 
 ```bash
