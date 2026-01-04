@@ -1,2 +1,0 @@
-pandoc==1.5.*
-weasyprint==67.*
