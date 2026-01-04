@@ -1,7 +1,6 @@
 {
   "name": "CV Workspace",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "features": {},
   "postCreateCommand": "bash .devcontainer/setup.sh",
   "customizations": {
     "vscode": {
@@ -9,7 +8,9 @@
         "yzhang.markdown-all-in-one",
         "DavidAnson.vscode-markdownlint",
         "shd101wyy.markdown-preview-enhanced",
-        "tomoki1207.pdf"
+        "tomoki1207.pdf",
+        "adamraichu.pdf-viewer",
+        "emeraldwalk.runonsave"
       ]
     }
   }

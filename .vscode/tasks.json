@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Resume PDF",
+      "type": "shell",
+      "command": ". .venv/bin/activate && pandoc resume/resume.md -f markdown -t pdf --pdf-engine=weasyprint -c resume/resume-stylesheet.css -s -o resume/resume.pdf",
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      }
+    }
+  ]
+}

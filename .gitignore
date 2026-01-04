@@ -1,64 +1,20 @@
-name: Create PDF File
+# Python virtual environment
+.venv/
 
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+# Python cache
+__pycache__/
+*.pyc
 
-jobs:
-  convert_via_pandoc:
-    runs-on: ubuntu-22.04
+# OS files
+.DS_Store
+Thumbs.db
 
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
+# Editor config
+.vscode/settings.json
 
-      - name: Create output folder
-        run: |
-          mkdir -p output
-          cp resume-stylesheet.css output/resume-stylesheet.css
-          cp resume.md output/${{ github.actor }}-resume.md
+# Pandoc / build artifacts
+resume/*.html
+resume/*.pdf
 
-      - name: Install Pandoc (latest)
-        run: |
-          wget https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-1-amd64.deb
-          sudo dpkg -i pandoc-3.6.4-1-amd64.deb
-
-      - name: Install WeasyPrint dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y \
-            python3-pip \
-            python3-cffi \
-            libpango-1.0-0 \
-            libcairo2 \
-            libgdk-pixbuf2.0-0 \
-            libffi-dev \
-            libxml2 \
-            libxslt1.1 \
-            fonts-dejavu-core \
-            fonts-liberation \
-            fonts-freefont-ttf
-
-          sudo pip3 install weasyprint
-
-      - name: Convert MD → HTML using Pandoc
-        run: |
-          pandoc resume.md \
-            -f markdown -t html \
-            -c resume-stylesheet.css \
-            -s \
-            -o output/${{ github.actor }}-resume.html
-
-      - name: Convert HTML → PDF using WeasyPrint
-        run: |
-          weasyprint \
-            output/${{ github.actor }}-resume.html \
-            output/${{ github.actor }}-resume.pdf
-
-      - name: Upload Resume Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.actor }}-resume
-          path: output
+# Logs
+*.log

@@ -1,3 +1,14 @@
 {
-    "makefile.configureOnOpen": false
+  "terminal.integrated.env.linux": {
+  "PATH": "${workspaceFolder}/.venv/bin:${env:PATH}"
+  },
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "resume/.*\\.md$",
+        "cmd": "workbench.action.tasks.runTask Build Resume PDF"
+      }
+    ]
+  },
+  "files.autoSave": "afterDelay"
 }
